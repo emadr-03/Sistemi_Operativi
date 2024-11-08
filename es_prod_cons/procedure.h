@@ -1,3 +1,6 @@
+#ifndef PROCEDURE_H
+#define PROCEDURE_H
+
 #include <unistd.h>
 #include <sys/wait.h>
 #include <stdio.h>
@@ -22,3 +25,5 @@ typedef struct {
 } posto;
 
 void prenotazione(int semid, int *buff_disp, posto *p, pid_t pid);
+
+#endif
