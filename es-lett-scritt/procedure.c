@@ -19,6 +19,7 @@ void iniziolettura(int semid,Buffer *p)
 void finelettura(int semid,Buffer *p)
 {
     Signal_Sem(semid,SYNCH);
+    Signal_Sem(semid,MUTEXS);
 }
 
 void lettore(int semid,Buffer *p)
@@ -41,7 +42,6 @@ void inizioscrittura(int semid,Buffer *p)
 void finescrittura(int semid,Buffer *p)
 {
     Signal_Sem(semid,SYNCH);
-    Signal_Sem(semid,MUTEXS);
 }
 
 void scrittore(int semid,Buffer *p)
