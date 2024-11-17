@@ -43,6 +43,11 @@ int main()
     }
 
     Buffer *buff = (Buffer *) shmat(shmstringa,0,0);
+    buff->numlettori = 0;
+    for (int i = 0; i < MAX_DIM; i++)
+    {
+        buff->stringa[i] = 'a';            
+    }
 
     key_t chiavesemafori = ftok(".",'c');
     int semid = semget(chiavesemafori,2,IPC_CREAT|IPC_EXCL|0664);
