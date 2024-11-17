@@ -3,7 +3,7 @@
 
 #define MUTEXL 0
 #define SYNCH 1
-#define MAX_DIM 15
+#define MAX_DIM 16
 #define NUM_ANALIZZATORI 2
 
 typedef struct
