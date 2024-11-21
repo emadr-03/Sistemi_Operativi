@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <pthread.h>
+#include <time.h>
 #include "procedure.h"
 
 void scrivi(Buffer *p)
@@ -23,7 +24,7 @@ void scrivi(Buffer *p)
     pthread_mutex_unlock(&(p->mutex));
 
     int valore;
-    srand(getpid());
+    valore = rand() % 81;
     p->val = valore;
 
     printf("[Scrittore] Valore scritto: %d\n",p->val);
@@ -38,7 +39,7 @@ void scrivi(Buffer *p)
     pthread_mutex_unlock(&(p->mutex));
 }
 
-int leggi(Buffer *p)
+void leggi(Buffer *p)
 {
     pthread_mutex_lock(&(p->mutex));
 
@@ -48,8 +49,7 @@ int leggi(Buffer *p)
 
     pthread_mutex_unlock(&(p->mutex));
 
-    int valore;
-    valore = p->val;
+    printf("[Lettore] Valore letto: %d\n",p->val);
 
     pthread_mutex_lock(&(p->mutex));
 
@@ -58,26 +58,21 @@ int leggi(Buffer *p)
     if (p->numlettori == 0) pthread_cond_signal(&(p->cond_scrittori));
 
     pthread_mutex_unlock(&(p->mutex));
-
-    return valore;
 }
 
 void *lettore(void *d)
 {
     Buffer *p = (Buffer *) d;
-    int valore;
+    
+    for (int i = 0; i < 5; i++) leggi(p);
 
-    for (int i = 0; i < 5; i++)
-    {
-        valore = leggi(p);
-        printf("[Lettore] Valore letto: %d\n",valore);
-    }
     pthread_exit(0);
 }
 
 void *scrittore(void *d)
 {
     Buffer *p = (Buffer *) d;
+    srand(time(NULL) ^ pthread_self());
 
     for (int i = 0; i < 5; i++) scrivi(p);
 

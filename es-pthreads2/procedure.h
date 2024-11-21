@@ -23,7 +23,7 @@ typedef struct
 void *lettore(void *d);
 void *scrittore(void *d);
 
-int leggi(Buffer *p);
+void leggi(Buffer *p);
 void scrivi(Buffer *p);
 
 #endif
